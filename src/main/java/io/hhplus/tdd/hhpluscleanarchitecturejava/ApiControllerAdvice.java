@@ -1,8 +1,8 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava;
 
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.vo.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.vo.ErrorResponse;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.BusinessError;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,7 +16,7 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
         String errMessage = e.getMessage();
         System.out.println("ErrorHandler " + e);
 
-        if(errMessage == null || errMessage.isEmpty()) {
+        if (errMessage == null || errMessage.isEmpty()) {
             errMessage = "에러가 발생했습니다";
 
         }

@@ -1,4 +1,4 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto.response;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

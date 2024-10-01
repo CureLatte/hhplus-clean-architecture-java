@@ -1,19 +1,21 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.vo.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto.request.HealthCheckRequest;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto.response.HealthCheckResponse;
-import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application.LectureFacade;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.BusinessError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 
 @RestController
 public class LectureController {
+
+    final LectureFacade lectureFacade;
+
+    public LectureController(LectureFacade lectureFacade) {
+        this.lectureFacade = lectureFacade;
+
+    }
 
     @PostMapping("/test")
     public HealthCheckResponse test(@RequestBody HealthCheckRequest request) throws BusinessError {
