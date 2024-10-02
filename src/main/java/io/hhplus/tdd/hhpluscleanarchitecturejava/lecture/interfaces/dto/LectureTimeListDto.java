@@ -1,6 +1,5 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.Lecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
 import lombok.*;
 

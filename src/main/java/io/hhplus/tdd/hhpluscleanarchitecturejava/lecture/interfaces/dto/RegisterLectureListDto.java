@@ -1,4 +1,4 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto;
 
 import lombok.*;
 

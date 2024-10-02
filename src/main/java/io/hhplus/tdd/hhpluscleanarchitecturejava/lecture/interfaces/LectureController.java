@@ -4,7 +4,7 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application.LectureFaca
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLecture;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
