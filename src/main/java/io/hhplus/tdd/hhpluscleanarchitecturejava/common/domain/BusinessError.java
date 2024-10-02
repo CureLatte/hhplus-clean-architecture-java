@@ -1,4 +1,4 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain;
 
 import lombok.Getter;
 
