@@ -28,7 +28,14 @@ public class LectureJpaRepository implements LectureRepository {
             return Optional.empty();
         }
 
-        return Optional.of(new Lecture(lectureEntity.getId(), lectureEntity.getContent(), lectureEntity.getLecturer()));
+        return Optional.of(
+                Lecture.builder()
+                        .id(lectureEntity.getId())
+                        .title(lectureEntity.getTitle())
+                        .lecturer(lectureEntity.getLecturer())
+                        .build());
+
+
     }
 
 

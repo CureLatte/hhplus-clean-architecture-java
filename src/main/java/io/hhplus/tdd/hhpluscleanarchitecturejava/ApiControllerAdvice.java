@@ -2,7 +2,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava;
 
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.ErrorResponse;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

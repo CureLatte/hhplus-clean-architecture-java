@@ -2,30 +2,46 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application.LectureFacade;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.BusinessError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @RestController
+@RequestMapping("/lecture")
 public class LectureController {
 
     final LectureFacade lectureFacade;
 
     public LectureController(LectureFacade lectureFacade) {
         this.lectureFacade = lectureFacade;
-
     }
 
-    @PostMapping("/test")
-    public HealthCheckResponse test(@RequestBody HealthCheckRequest request) throws BusinessError {
+    /**
+     * 날짜별 수강 가능한 강의 조회
+     *
+     * @param date LocalDate
+     * @return getLectureTimeResponse
+     * @throws BusinessError BusinessError
+     */
+    @GetMapping("/time")
+    public GetLectureTimeResponse lectureTimeList(@RequestParam LocalDate date) throws BusinessError {
+
+        System.out.println(date);
+
+        List<LectureTime> lectureTimeList = this.lectureFacade.getLectureTimeByDate(date);
+
+        List<LectureTimeListDto> lectureTimeListDtoList = lectureTimeList.stream().map(LectureTimeListDto::new).toList();
 
 
-        System.out.println(request.getInput());
-        if (request.getInput().equals("error")) {
-            throw new BusinessError("ERROR!!");
-        }
+        GetLectureTimeResponse response = new GetLectureTimeResponse(lectureTimeListDtoList);
 
-        return new HealthCheckResponse("ok");
+        System.out.println("response: " + response);
+
+        return response;
     }
+
+
 }

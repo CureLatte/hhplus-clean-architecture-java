@@ -1,6 +1,11 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
 
+
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class LectureService {
@@ -10,6 +15,11 @@ public class LectureService {
     public LectureService(LectureRepository lectureRepository, LectureTimeRepository lectureTimeRepository) {
         this.lectureRepository = lectureRepository;
         this.lectureTimeRepository = lectureTimeRepository;
+    }
+
+
+    public List<LectureTime> getLectureList(LocalDate targetDate) {
+        return this.lectureTimeRepository.findAllByTime(targetDate);
     }
 
 
