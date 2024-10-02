@@ -4,6 +4,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureService;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.StudentService;
 import lombok.AllArgsConstructor;
@@ -30,5 +31,12 @@ public class LectureFacade {
         LectureTime lectureTime = this.lectureService.getLectureTimeById(lectureTimeId);
 
         this.lectureService.register(student, lectureTime);
+    }
+
+    public List<RegisterLecture> getLectureHistory(long studentId) throws BusinessError {
+
+        Student student = this.studentService.getStudentById(studentId);
+
+        return this.lectureService.showLectureHistory(student);
     }
 }

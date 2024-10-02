@@ -3,6 +3,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application.LectureFacade;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLecture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,5 +56,34 @@ public class LectureController {
         return new PostRegisterLectureResponseDto(true);
     }
 
+
+    @GetMapping("/register/{id}/history")
+    public GetRegisterLectureHistoryResponseDto getRegisterLectureHistory(@PathVariable Long id) throws BusinessError {
+
+        List<RegisterLecture> historyList = this.lectureFacade.getLectureHistory(id);
+
+
+        for (RegisterLecture history : historyList) {
+            System.out.println("history ::  " + history);
+            System.out.println(history.toString());
+
+
+        }
+
+        List<RegisterLectureListDto> resultList = historyList.stream().map(registerLecture -> {
+            return RegisterLectureListDto.builder()
+                    .lectureId(registerLecture.getLectureTime().lectureId)
+                    .createAt(registerLecture.getCreatedAt())
+                    .instructer(registerLecture.lectureTime.lecture.lecturer)
+                    .title(registerLecture.lectureTime.lecture.title)
+                    .studentId(registerLecture.student.getId())
+                    .lectureTimeId(registerLecture.lectureTime.getId())
+                    .studentCnt(registerLecture.lectureTime.studentCnt)
+                    .build();
+        }).toList();
+
+
+        return GetRegisterLectureHistoryResponseDto.builder().lectureHistory(resultList).build();
+    }
 
 }

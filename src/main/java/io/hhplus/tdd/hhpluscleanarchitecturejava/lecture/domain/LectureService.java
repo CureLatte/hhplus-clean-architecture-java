@@ -62,4 +62,10 @@ public class LectureService {
 
     }
 
+
+    public List<RegisterLecture> showLectureHistory(Student student) {
+
+        return this.registerLectureRepository.findAllByStudent(student);
+    }
+
 }

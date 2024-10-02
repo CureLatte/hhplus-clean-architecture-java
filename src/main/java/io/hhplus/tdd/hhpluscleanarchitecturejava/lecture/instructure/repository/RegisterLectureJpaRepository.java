@@ -52,8 +52,6 @@ public class RegisterLectureJpaRepository implements RegisterLectureRepository {
     @Override
     public RegisterLecture create(Student student, LectureTime lectureTime) {
 
-        System.out.println("create Function" + student);
-
         RegisterLectureEntity newRegisterLecture = new RegisterLectureEntity();
 
         newRegisterLecture.setLectureTime(lectureTime.toEntity());
@@ -66,4 +64,16 @@ public class RegisterLectureJpaRepository implements RegisterLectureRepository {
 
         return null;
     }
+
+    @Override
+    public List<RegisterLecture> findAllByStudent(Student student) {
+        Query query = this.entityManager.createNativeQuery("select * from register_lecture where student_id= :studentId", RegisterLectureEntity.class);
+        query.setParameter("studentId", student.getId());
+
+        List<RegisterLectureEntity> registerLectureEntityList = query.getResultList();
+
+        return registerLectureEntityList.stream().map(RegisterLecture::new).toList();
+    }
+
+
 }

@@ -3,10 +3,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.RegisterLectureEntity;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @Builder
+@ToString
 public class RegisterLecture {
     public long id;
     public Student student;
@@ -24,7 +22,6 @@ public class RegisterLecture {
 
     public RegisterLecture(RegisterLectureEntity registerLectureEntity) {
 
-        System.out.println("TO Entity!!!" + registerLectureEntity.toString());
 
         this.id = registerLectureEntity.getId();
         this.student = new Student(registerLectureEntity.getStudent());
