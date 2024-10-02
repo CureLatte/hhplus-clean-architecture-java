@@ -19,4 +19,11 @@ public class Student {
         this.id = student.getId();
         this.name = student.getName();
     }
+
+    public StudentEntity toEntity() {
+        StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setId(id);
+        studentEntity.setName(name);
+        return studentEntity;
+    }
 }

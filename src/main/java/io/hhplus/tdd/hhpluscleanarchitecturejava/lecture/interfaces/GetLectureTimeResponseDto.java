@@ -1,6 +1,5 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
 import lombok.*;
 
 import java.util.List;
@@ -11,10 +10,10 @@ import java.util.List;
 @Data
 @ToString
 @NoArgsConstructor
-public class GetLectureTimeResponse {
+public class GetLectureTimeResponseDto {
     private List<LectureTimeListDto> lectureTimeList;
 
-    public GetLectureTimeResponse(List<LectureTimeListDto> lectureTimeList) {
+    public GetLectureTimeResponseDto(List<LectureTimeListDto> lectureTimeList) {
         this.lectureTimeList = lectureTimeList;
     }
 }

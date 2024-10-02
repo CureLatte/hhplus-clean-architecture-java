@@ -23,11 +23,15 @@ public class RegisterLecture {
 
 
     public RegisterLecture(RegisterLectureEntity registerLectureEntity) {
+
+        System.out.println("TO Entity!!!" + registerLectureEntity.toString());
+
         this.id = registerLectureEntity.getId();
         this.student = new Student(registerLectureEntity.getStudent());
         this.lectureTime = new LectureTime(registerLectureEntity.getLectureTime());
         this.createdAt = registerLectureEntity.getCreatedAt();
         this.updatedAt = registerLectureEntity.getUpdatedAt();
-
     }
+
+
 }

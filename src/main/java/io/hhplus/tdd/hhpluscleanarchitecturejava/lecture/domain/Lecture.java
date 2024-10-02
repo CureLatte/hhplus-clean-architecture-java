@@ -26,4 +26,16 @@ public class Lecture {
         this.createdAt = lectureEntity.getCreatedAt();
         this.updatedAt = lectureEntity.getUpdatedAt();
     }
+
+    public LectureEntity toEntity() {
+        LectureEntity lectureEntity = new LectureEntity();
+        lectureEntity.setId(id);
+        lectureEntity.setTitle(title);
+        lectureEntity.setLecturer(lecturer);
+        lectureEntity.setCreatedAt(createdAt);
+        lectureEntity.setUpdatedAt(updatedAt);
+        return lectureEntity;
+    }
+
+
 }

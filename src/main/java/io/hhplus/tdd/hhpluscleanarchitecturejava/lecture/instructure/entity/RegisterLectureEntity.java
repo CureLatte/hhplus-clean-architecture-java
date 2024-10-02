@@ -3,8 +3,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.instructure.StudentEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,6 +13,9 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "register_lecture")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RegisterLectureEntity {
 
     @Id
@@ -21,11 +23,11 @@ public class RegisterLectureEntity {
     private long id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "studnet_id")
+    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private StudentEntity student;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "lecture_id")
+    @JoinColumn(name = "lecture_time_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private LectureTimeEntity lectureTime;
 
 

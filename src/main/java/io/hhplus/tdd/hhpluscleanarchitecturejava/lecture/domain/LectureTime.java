@@ -20,15 +20,6 @@ public class LectureTime {
     public LocalDateTime updatedAt;
     public Lecture lecture;
 
-//    public LectureTime(long id, long lectureId, long studentCnt, LocalDate time, LocalDateTime createdAt, LocalDateTime updatedAt, Lecture lecture) {
-//        this.id = id;
-//        this.lectureId = lectureId;
-//        this.studentCnt = studentCnt;
-//        this.time = time;
-//        this.createdAt = createdAt;
-//        this.updatedAt = updatedAt;
-//        this.lecture = lecture;
-//    }
 
     public LectureTime(LectureTimeEntity lectureTimeEntity) {
         this.id = lectureTimeEntity.getId();
@@ -39,4 +30,17 @@ public class LectureTime {
         this.updatedAt = lectureTimeEntity.getUpdatedAt();
         this.lecture = new Lecture(lectureTimeEntity.getLecture());
     }
+
+
+    public LectureTimeEntity toEntity() {
+        LectureTimeEntity lectureTimeEntity = new LectureTimeEntity();
+        lectureTimeEntity.setStudentCnt(studentCnt);
+        lectureTimeEntity.setTime(time);
+        lectureTimeEntity.setId(id);
+        lectureTimeEntity.setCreatedAt(createdAt);
+        lectureTimeEntity.setUpdatedAt(updatedAt);
+        lectureTimeEntity.setLecture(lecture.toEntity());
+        return lectureTimeEntity;
+    }
+
 }

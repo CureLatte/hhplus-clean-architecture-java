@@ -4,6 +4,6 @@ import java.util.Optional;
 
 public interface LectureRepository {
 
-    public Optional<Lecture> findById(long id);
+    public Lecture findById(long id);
 
 }

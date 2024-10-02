@@ -22,19 +22,18 @@ public class LectureJpaRepository implements LectureRepository {
     }
 
     @Override
-    public Optional<Lecture> findById(long id) {
+    public Lecture findById(long id) {
         LectureEntity lectureEntity = this.entityManager.find(LectureEntity.class, id);
 
         if (lectureEntity == null) {
-            return Optional.empty();
+            return null;
         }
 
-        return Optional.of(
-                Lecture.builder()
-                        .id(lectureEntity.getId())
-                        .title(lectureEntity.getTitle())
-                        .lecturer(lectureEntity.getLecturer())
-                        .build());
+        return Lecture.builder()
+                .id(lectureEntity.getId())
+                .title(lectureEntity.getTitle())
+                .lecturer(lectureEntity.getLecturer())
+                .build();
 
 
     }

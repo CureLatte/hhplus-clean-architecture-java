@@ -39,4 +39,5 @@ public class LectureTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private LectureEntity lecture;
+
 }

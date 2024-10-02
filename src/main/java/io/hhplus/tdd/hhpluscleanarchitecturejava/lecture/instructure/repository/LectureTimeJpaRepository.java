@@ -6,7 +6,6 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.Lect
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,26 +27,28 @@ public class LectureTimeJpaRepository implements LectureTimeRepository {
     }
 
     @Override
+    public LectureTime findOneById(long id) {
+
+        LectureTimeEntity lectureTimeEntity = entityManager.find(LectureTimeEntity.class, id);
+
+        if (lectureTimeEntity == null) return null;
+
+        return new LectureTime(lectureTimeEntity);
+    }
+
+    @Override
     public List<LectureTime> findAllByLectureId(long id) {
         return List.of();
     }
 
     @Override
     public List<LectureTime> findAllByTime(LocalDate date) {
-        TypedQuery<LectureTimeEntity> query = entityManager.createQuery("select t from LectureTimeEntity t join t.lecture where t.time = :date", LectureTimeEntity.class);
-        query.setParameter("date", date);
 
         Query nativeQuery = entityManager.createNativeQuery("select * from lecture_time where time = :date", LectureTimeEntity.class);
         nativeQuery.setParameter("date", date);
         List<LectureTimeEntity> checkLectureTimeEntities = nativeQuery.getResultList();
 
-        for (LectureTimeEntity lectureTimeEntity : checkLectureTimeEntities) {
-            System.out.println("native Query Result: " + lectureTimeEntity);
-        }
-
-        List<LectureTimeEntity> lectureTimeEntityList = query.getResultList();
-
-        return lectureTimeEntityList.stream().map(
+        return checkLectureTimeEntities.stream().map(
                         e -> new LectureTime(e))
                 .collect(Collectors.toList());
     }

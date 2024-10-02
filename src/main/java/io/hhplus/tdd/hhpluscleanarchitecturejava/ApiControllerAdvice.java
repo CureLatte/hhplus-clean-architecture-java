@@ -2,7 +2,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava;
 
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.ErrorResponse;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.ErrorResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 class ApiControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception e) {
+    public ResponseEntity<ErrorResponseDto> handleException(Exception e) {
 
         String errMessage = e.getMessage();
         System.out.println("ErrorHandler " + e);
@@ -20,12 +20,12 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
             errMessage = "에러가 발생했습니다";
 
         }
-        return ResponseEntity.status(500).body(new ErrorResponse("500", errMessage));
+        return ResponseEntity.status(500).body(new ErrorResponseDto("500", errMessage));
     }
 
     @ExceptionHandler(value = BusinessError.class)
-    public ResponseEntity<ErrorResponse> handleBusinessError(BusinessError businessError) {
+    public ResponseEntity<ErrorResponseDto> handleBusinessError(BusinessError businessError) {
 
-        return ResponseEntity.status(500).body(new ErrorResponse("500", businessError.getMessage()));
+        return ResponseEntity.status(500).body(new ErrorResponseDto("500", businessError.getMessage()));
     }
 }

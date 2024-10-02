@@ -3,6 +3,7 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application.LectureFacade;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class LectureController {
      * @throws BusinessError BusinessError
      */
     @GetMapping("/time")
-    public GetLectureTimeResponse lectureTimeList(@RequestParam LocalDate date) throws BusinessError {
+    public GetLectureTimeResponseDto lectureTimeList(@RequestParam LocalDate date) throws BusinessError {
 
         System.out.println(date);
 
@@ -36,11 +37,22 @@ public class LectureController {
         List<LectureTimeListDto> lectureTimeListDtoList = lectureTimeList.stream().map(LectureTimeListDto::new).toList();
 
 
-        GetLectureTimeResponse response = new GetLectureTimeResponse(lectureTimeListDtoList);
+        GetLectureTimeResponseDto response = new GetLectureTimeResponseDto(lectureTimeListDtoList);
 
         System.out.println("response: " + response);
 
         return response;
+    }
+
+
+    @PostMapping("/register")
+    public PostRegisterLectureResponseDto postRegisterLecture(@RequestBody PostRegisterLectureRequestDto requestDto) throws BusinessError {
+
+        System.out.println(requestDto);
+
+        this.lectureFacade.postRegisterLecture(requestDto.getStudentId(), requestDto.getLectureTimeId());
+
+        return new PostRegisterLectureResponseDto(true);
     }
 
 
