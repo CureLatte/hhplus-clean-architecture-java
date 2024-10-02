@@ -1,4 +1,4 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

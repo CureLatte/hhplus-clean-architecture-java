@@ -1,7 +1,7 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
 
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.LectureEntity;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;

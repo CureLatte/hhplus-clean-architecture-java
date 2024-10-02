@@ -1,7 +1,8 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.repository;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.Lecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureRepository;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;

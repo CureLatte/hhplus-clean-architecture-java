@@ -1,6 +1,5 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.Lecture;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;

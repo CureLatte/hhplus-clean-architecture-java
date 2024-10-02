@@ -1,21 +1,18 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.repository;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.Lecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTimeRepository;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureTimeEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 @Repository
 public class LectureTimeJpaRepository implements LectureTimeRepository {

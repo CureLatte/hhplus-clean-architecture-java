@@ -1,13 +1,10 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.LectureEntity;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.LectureTimeEntity;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureTimeEntity;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
