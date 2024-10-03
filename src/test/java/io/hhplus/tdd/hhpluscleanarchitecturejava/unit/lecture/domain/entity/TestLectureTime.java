@@ -59,7 +59,7 @@ public class TestLectureTime {
                 .lecture(Lecture.builder().build())
                 .build();
 
-        lectureTime.setStudentCnt(lectureTime.getMAX_REGISTER_STUDENT() + 1);
+        lectureTime.setStudentCnt(lectureTime.getMAX_REGISTER_STUDENT());
 
 
         // WHEN

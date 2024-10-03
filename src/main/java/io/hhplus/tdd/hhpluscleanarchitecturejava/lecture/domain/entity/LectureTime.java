@@ -55,7 +55,7 @@ public class LectureTime {
             throw new BusinessError(this.NOT_FOUNT_LECTURE_ERROR_MESSAGE);
         }
 
-        if (this.studentCnt > this.MAX_REGISTER_STUDENT) {
+        if (this.studentCnt >= this.MAX_REGISTER_STUDENT) {
             throw new BusinessError(this.MAX_REGISTER_STUDENT_ERROR_MESSAGE);
         }
     }

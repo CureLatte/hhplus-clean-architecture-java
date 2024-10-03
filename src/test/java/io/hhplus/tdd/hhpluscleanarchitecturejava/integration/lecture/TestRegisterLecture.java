@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.integration.TestBaseIntegration;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureService;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.Lecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureEntity;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureTimeEntity;
@@ -296,5 +297,50 @@ public class TestRegisterLecture extends TestBaseIntegration {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(lectureService.DUPLICATE_REGISTER_LECTURE_ERROR_MESSAGE));
 
     }
+
+    @Test
+    public void 인원_마감_강의_신청시_에러() throws Exception {
+        // GIVEN
+        StudentEntity student = new StudentEntity();
+        student.setName("testStudent");
+
+        this.entityManager.persist(student);
+
+        LectureEntity lecture = new LectureEntity();
+
+        lecture.setLecturer("testLecturer");
+        lecture.setTitle("testTitle");
+
+        this.entityManager.persist(lecture);
+
+        LectureTime defaultLectureTime = LectureTime.builder().build();
+
+        LectureTimeEntity lectureTime = new LectureTimeEntity();
+        lectureTime.setTime(LocalDate.now());
+        lectureTime.setLecture(lecture);
+        lectureTime.setStudentCnt(defaultLectureTime.getMAX_REGISTER_STUDENT());
+
+        this.entityManager.persist(lectureTime);
+
+
+        // WHEN
+        Map<String, Long> request = new HashMap<String, Long>();
+        request.put("lectureTimeId", lectureTime.getId());
+        request.put("studentId", student.getId());
+        ResultActions resultActions = mvc.perform(
+                post(URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(this.objectMapper.writeValueAsString(request))
+        );
+
+
+        // THEN
+        resultActions
+                .andExpect(status().is(500))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(defaultLectureTime.getMAX_REGISTER_STUDENT_ERROR_MESSAGE()));
+
+    }
+
 
 }
