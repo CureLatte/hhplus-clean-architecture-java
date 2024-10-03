@@ -8,16 +8,24 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.Lectu
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.LectureTimeRepository;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.RegisterLectureRepository;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
-import jakarta.transaction.Transactional;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
-@Transactional
+
 public class LectureService {
     final LectureRepository lectureRepository;
     final LectureTimeRepository lectureTimeRepository;
@@ -26,6 +34,7 @@ public class LectureService {
     public final String NOT_FOUND_LECTURE_TIME_ERROR_MESSAGE = "존재하지 않은 강의 시간입니다.";
     public final String DUPLICATE_REGISTER_LECTURE_ERROR_MESSAGE = "중복된 신청이 존재합니다.";
 
+    public final Map<Long, Lock> locks = new ConcurrentHashMap<>();
 
     /**
      * LectureTime ID 조회
@@ -63,6 +72,7 @@ public class LectureService {
      * @param student     Student
      * @param lectureTime LectureTime
      */
+    @Transactional
     public RegisterLecture register(Student student, LectureTime lectureTime) throws BusinessError {
 
         // 마감 인원 초과
@@ -77,7 +87,6 @@ public class LectureService {
 
 
         // 생성
-
         return this.registerLectureRepository.create(student, lectureTime);
 
     }
@@ -92,6 +101,30 @@ public class LectureService {
     public List<RegisterLecture> showLectureHistory(Student student) {
 
         return this.registerLectureRepository.findAllByStudent(student);
+    }
+
+    public <T> T lock(Long id, Supplier<T> supplier) throws BusinessError {
+        final Lock lock = this.locks.computeIfAbsent(id, k -> new ReentrantLock(true));
+        lock.lock();
+        try {
+            return supplier.get();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    @Transactional
+    public RegisterLecture registerWithLock(Student student, LectureTime lectureTime) throws BusinessError {
+
+        return this.lock(student.getId(), () -> {
+            try {
+                return this.register(student, lectureTime);
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
+
+        });
+
     }
 
 }

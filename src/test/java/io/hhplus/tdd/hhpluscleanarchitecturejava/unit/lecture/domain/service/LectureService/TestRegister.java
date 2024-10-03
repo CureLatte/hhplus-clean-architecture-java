@@ -5,12 +5,15 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.Lecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
+@Transactional
 public class TestRegister extends TestLectureService {
 
     public TestRegister() {
@@ -26,10 +29,13 @@ public class TestRegister extends TestLectureService {
                 .name("test_name")
                 .build();
 
+        Lecture lecture = Lecture.builder().build();
+
         LectureTime lectureTime = LectureTime.builder()
                 .id(1)
                 .lectureId(1)
                 .studentCnt(0)
+                .lecture(lecture)
                 .build();
 
         when(this.registerLectureRepository.check(student, lectureTime)).thenReturn(null);
@@ -50,10 +56,13 @@ public class TestRegister extends TestLectureService {
                 .name("test_name")
                 .build();
 
+        Lecture lecture = Lecture.builder().build();
+
         LectureTime lectureTime = LectureTime.builder()
                 .id(1)
                 .lectureId(1)
                 .studentCnt(0)
+                .lecture(lecture)
                 .build();
 
         lenient()

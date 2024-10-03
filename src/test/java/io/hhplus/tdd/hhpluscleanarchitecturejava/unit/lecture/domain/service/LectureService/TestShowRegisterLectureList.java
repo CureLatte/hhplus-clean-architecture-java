@@ -6,7 +6,6 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.Lect
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.RegisterLectureEntity;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.instructure.StudentEntity;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Transactional
+
 public class TestShowRegisterLectureList extends TestBaseIntegration {
 
     @Autowired
