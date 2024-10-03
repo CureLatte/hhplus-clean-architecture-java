@@ -7,7 +7,7 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.Lectu
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureEntity;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureTimeEntity;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Transactional
 public class TestGetLectureTimeList extends TestBaseIntegration {
 
     final String baseUrl = "/lecture";
@@ -72,7 +71,6 @@ public class TestGetLectureTimeList extends TestBaseIntegration {
 
 
     @Test
-    @Transactional
     public void 날자별_강좌_조회_다른_일자_추가_성공() throws Exception {
         // GIVEN
         LocalDate today = LocalDate.now();
@@ -112,7 +110,6 @@ public class TestGetLectureTimeList extends TestBaseIntegration {
     }
 
     @Test
-    @Transactional
     public void 날자별_강좌_조회_다른_일자_조회_실패() throws Exception {
         // GIVEN
         LocalDate today = LocalDate.now();
@@ -147,7 +144,6 @@ public class TestGetLectureTimeList extends TestBaseIntegration {
 
 
     @Test
-    @Transactional
     public void 강좌_신청시_성공() throws Exception {
         // GIVEN
         LocalDate today = LocalDate.now();

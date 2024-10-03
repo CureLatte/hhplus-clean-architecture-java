@@ -13,8 +13,8 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.StudentService;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.instructure.StudentEntity;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Transactional
+
 public class TestRegisterLecture extends TestBaseIntegration {
 
     @Autowired
@@ -42,7 +42,24 @@ public class TestRegisterLecture extends TestBaseIntegration {
     @Autowired
     StudentService studentService;
 
-    private final String URL = "/lecture/register";
+    protected final String URL = "/lecture/register";
+
+    protected ResultActions requestRegister(StudentEntity student, LectureTimeEntity lectureTime) throws Exception {
+        System.out.println("studentGETID!!!!: " + student.getId());
+
+        Map<String, Long> request = new HashMap<String, Long>();
+        request.put("studentId", student.getId());
+        request.put("lectureTimeId", lectureTime.getId());
+
+        return mvc.perform(
+                post(this.URL)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+
+        );
+
+    }
 
     public TestRegisterLecture() {
         super();
@@ -77,14 +94,7 @@ public class TestRegisterLecture extends TestBaseIntegration {
         request.put("studentId", student.getId());
 
         // WHEN
-        ResultActions resultActions = mvc.perform(
-                post(this.URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-
-        );
-
+        ResultActions resultActions = this.requestRegister(student, lectureTime);
         // THEN
         resultActions
                 .andExpect(status().isOk());
@@ -123,18 +133,10 @@ public class TestRegisterLecture extends TestBaseIntegration {
 
         this.entityManager.persist(lectureTime);
 
-
-        Map<String, Long> request = new HashMap<String, Long>();
-        request.put("lectureTimeId", lectureTime.getId() + 1);
-        request.put("studentId", student.getId());
+        lectureTime.setId(lecture.getId() + 1);
 
         // WHEN
-        ResultActions resultActions = mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
+        ResultActions resultActions = this.requestRegister(student, lectureTime);
 
 
         // THEN
@@ -167,18 +169,10 @@ public class TestRegisterLecture extends TestBaseIntegration {
 
         this.entityManager.persist(lectureTime);
 
-
-        Map<String, Long> request = new HashMap<String, Long>();
-        request.put("lectureTimeId", lectureTime.getId());
-        request.put("studentId", student.getId() + 1);
+        student.setId(student.getId() + 1);
 
         // WHEN
-        ResultActions resultActions = mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
+        ResultActions resultActions = this.requestRegister(student, lectureTime);
 
 
         // THEN
@@ -211,24 +205,11 @@ public class TestRegisterLecture extends TestBaseIntegration {
         this.entityManager.persist(lectureTime);
 
 
-        Map<String, Long> request = new HashMap<String, Long>();
-        request.put("lectureTimeId", lectureTime.getId());
-        request.put("studentId", student.getId());
-        mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
+        this.requestRegister(student, lectureTime);
 
 
         // WHEN
-        ResultActions resultActions = mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
+        ResultActions resultActions = this.requestRegister(student, lectureTime);
 
 
         // THEN
@@ -244,51 +225,29 @@ public class TestRegisterLecture extends TestBaseIntegration {
         // GIVEN
         StudentEntity student = new StudentEntity();
         student.setName("testStudent");
-
         this.entityManager.persist(student);
 
         LectureEntity lecture = new LectureEntity();
-
         lecture.setLecturer("testLecturer");
         lecture.setTitle("testTitle");
-
         this.entityManager.persist(lecture);
 
         LectureTimeEntity lectureTime = new LectureTimeEntity();
         lectureTime.setTime(LocalDate.now());
         lectureTime.setLecture(lecture);
         lectureTime.setStudentCnt(0);
-
         this.entityManager.persist(lectureTime);
 
         LectureTimeEntity lectureTime2 = new LectureTimeEntity();
         lectureTime2.setStudentCnt(0);
         lectureTime2.setTime(LocalDate.now().plusDays(1));
         lectureTime2.setLecture(lecture);
-
         this.entityManager.persist(lectureTime2);
 
-        Map<String, Long> request = new HashMap<String, Long>();
-        request.put("lectureTimeId", lectureTime.getId());
-        request.put("studentId", student.getId());
-        mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
+        this.requestRegister(student, lectureTime);
 
-
-        request.clear();
-        request.put("lectureTimeId", lectureTime2.getId());
-        request.put("studentId", student.getId());
         // WHEN
-        ResultActions resultActions = mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
+        ResultActions resultActions = this.requestRegister(student, lectureTime2);
 
 
         // THEN
@@ -324,16 +283,8 @@ public class TestRegisterLecture extends TestBaseIntegration {
 
 
         // WHEN
-        Map<String, Long> request = new HashMap<String, Long>();
-        request.put("lectureTimeId", lectureTime.getId());
-        request.put("studentId", student.getId());
-        ResultActions resultActions = mvc.perform(
-                post(URL)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(request))
-        );
 
+        ResultActions resultActions = this.requestRegister(student, lectureTime);
 
         // THEN
         resultActions
