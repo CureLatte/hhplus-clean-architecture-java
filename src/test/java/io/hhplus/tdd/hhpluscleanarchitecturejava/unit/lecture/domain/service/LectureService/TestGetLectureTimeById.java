@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 public class TestGetLectureTimeById extends TestLectureService {
@@ -19,7 +20,9 @@ public class TestGetLectureTimeById extends TestLectureService {
         // GIVEN
         long id = 1;
 
-        when(this.lectureTimeRepository.findOneById(id)).thenReturn(LectureTime.builder().id(id).build());
+        lenient()
+                .when(this.lectureTimeRepository.findOneById(id))
+                .thenReturn(LectureTime.builder().id(id).build());
 
 
         // WHEN
@@ -36,7 +39,9 @@ public class TestGetLectureTimeById extends TestLectureService {
         // GIVEN
         long id = 1;
 
-        when(this.lectureTimeRepository.findOneById(id)).thenReturn(null);
+        lenient()
+                .when(this.lectureTimeRepository.findOneById(id))
+                .thenReturn(null);
 
 
         // WHEN

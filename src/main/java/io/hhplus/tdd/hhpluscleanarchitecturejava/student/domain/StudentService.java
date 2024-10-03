@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 public class StudentService {
     final StudentRepository studentRepository;
 
+    public final String NOT_FOUND_STUDENT_ERROR_MESSAGE = "존재 하지 않은 유저입니다.";
+
     public Student getStudentById(long id) throws BusinessError {
         Student student = this.studentRepository.findById(id);
 
         if (student == null) {
-            throw new BusinessError("존재 하지 않은 유저입니다.");
+            throw new BusinessError(this.NOT_FOUND_STUDENT_ERROR_MESSAGE);
         }
 
         return student;
