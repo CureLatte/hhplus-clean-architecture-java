@@ -120,4 +120,89 @@ public class TestRegisterLectureWithConcurrency extends TestRegisterLecture {
 
         assertEquals(lectureTime.getMAX_REGISTER_STUDENT(), registerLectureEntityList.size());
     }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    public void 동시_신청시_하나는_에러() throws Exception {
+
+        // GIVEN
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        final StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setName("test1");
+
+
+        entityManager.persist(studentEntity);
+
+
+        System.out.println("student ID: " + studentEntity.getId());
+
+        LectureEntity lectureEntity = new LectureEntity();
+        lectureEntity.setLecturer("test2");
+        lectureEntity.setTitle("testTitle");
+
+        entityManager.persist(lectureEntity);
+
+        final LectureTimeEntity lectureTimeEntity = new LectureTimeEntity();
+        lectureTimeEntity.setLecture(lectureEntity);
+        lectureTimeEntity.setTime(LocalDate.now());
+        lectureTimeEntity.setStudentCnt(0);
+
+        entityManager.persist(lectureTimeEntity);
+
+        entityManager.flush();
+
+        transaction.commit();
+
+        int threadCnt = 5;
+
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCnt);
+
+        CountDownLatch countDownLatch = new CountDownLatch(threadCnt);
+
+
+        // WHEN
+        for (int i = 0; i < threadCnt; i++) {
+            executorService.execute(() -> {
+
+
+                try {
+
+
+                    ResultActions resultActions = this.requestRegister(studentEntity, lectureTimeEntity);
+                    String resposeBodyString = resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+                    System.out.println("Response Result: " + resposeBodyString);
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    countDownLatch.countDown();
+                }
+
+            });
+
+            System.out.println(i + " 번째 check!!");
+
+        }
+
+        countDownLatch.await();
+
+        Thread.sleep(1000);
+
+
+        // THEN
+        String sqlQuery = "select * from register_lecture where student_id = :studentId";
+        Query query = this.entityManager.createNativeQuery(sqlQuery, RegisterLectureEntity.class);
+        query.setParameter("studentId", studentEntity.getId());
+
+        List<RegisterLectureEntity> registerLectureEntityList = query.getResultList();
+
+        assertEquals(1, registerLectureEntityList.size());
+
+    }
+
 }
