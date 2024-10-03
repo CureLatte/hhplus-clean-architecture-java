@@ -1,4 +1,6 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository;
+
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
 
 import java.time.LocalDate;
 import java.util.List;

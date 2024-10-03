@@ -2,6 +2,11 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
 
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.LectureRepository;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.LectureTimeRepository;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.RegisterLectureRepository;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -63,7 +68,8 @@ public class LectureService {
         // 마감 인원 초과
         lectureTime.registerValidate();
 
-        //  중복 check
+
+        //  중복 check ( 동일 시간 )
         RegisterLecture existRegisterLecture = this.registerLectureRepository.check(student, lectureTime);
         if (existRegisterLecture != null) {
             throw new BusinessError(this.DUPLICATE_REGISTER_LECTURE_ERROR_MESSAGE);

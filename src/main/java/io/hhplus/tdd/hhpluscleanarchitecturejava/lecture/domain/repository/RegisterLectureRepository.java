@@ -1,5 +1,7 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository;
 
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 
 import java.util.List;

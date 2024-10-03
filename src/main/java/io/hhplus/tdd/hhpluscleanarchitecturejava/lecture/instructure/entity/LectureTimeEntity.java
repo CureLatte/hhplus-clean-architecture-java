@@ -21,9 +21,6 @@ public class LectureTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @Column(name = "lecture_id", nullable = false)
-//    private long lectureId;
-
     @Column(name = "student_cnt", nullable = false)
     private long studentCnt;
 

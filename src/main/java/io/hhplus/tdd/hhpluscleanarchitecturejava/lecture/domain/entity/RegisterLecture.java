@@ -1,4 +1,4 @@
-package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain;
+package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity;
 
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.RegisterLectureEntity;

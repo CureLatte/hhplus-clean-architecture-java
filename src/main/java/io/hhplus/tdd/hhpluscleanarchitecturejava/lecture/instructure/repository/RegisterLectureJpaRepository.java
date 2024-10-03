@@ -1,8 +1,8 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.repository;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLecture;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLectureRepository;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.RegisterLectureRepository;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.RegisterLectureEntity;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import jakarta.persistence.EntityManager;
@@ -32,10 +32,11 @@ public class RegisterLectureJpaRepository implements RegisterLectureRepository {
      */
     @Override
     public RegisterLecture check(Student student, LectureTime lectureTime) {
-        Query query = this.entityManager.createNativeQuery("select * from register_lecture where student_id= :studentId and lecture_time_id= :lectureTimeId", RegisterLectureEntity.class);
+        Query query = this.entityManager.createNativeQuery("select * from register_lecture where student_id= :studentId and (lecture_time_id= :lectureTimeId or lecture_id= :lectureId)", RegisterLectureEntity.class);
 
         query.setParameter("studentId", student.getId());
         query.setParameter("lectureTimeId", lectureTime.getId());
+        query.setParameter("lectureId", lectureTime.lectureId);
 
 
         List<RegisterLectureEntity> registerLectureEntityList = query.getResultList();

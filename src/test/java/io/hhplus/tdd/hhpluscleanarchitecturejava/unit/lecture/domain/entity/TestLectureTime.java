@@ -1,12 +1,11 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.unit.lecture.domain.entity;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.Lecture;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.Lecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;

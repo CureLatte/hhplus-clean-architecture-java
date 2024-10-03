@@ -1,13 +1,12 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.unit.lecture.domain.service.LectureService;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
 
 public class TestGetLectureTimeById extends TestLectureService {
     public TestGetLectureTimeById() {

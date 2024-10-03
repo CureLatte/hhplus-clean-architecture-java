@@ -2,8 +2,8 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.application.LectureFacade;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.interfaces.dto.*;
 import org.springframework.web.bind.annotation.*;
 

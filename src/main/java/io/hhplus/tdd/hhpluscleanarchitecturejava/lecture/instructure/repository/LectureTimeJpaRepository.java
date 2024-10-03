@@ -1,7 +1,7 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.repository;
 
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTimeRepository;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.repository.LectureTimeRepository;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.instructure.entity.LectureTimeEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

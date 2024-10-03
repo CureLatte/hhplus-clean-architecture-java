@@ -1,9 +1,9 @@
 package io.hhplus.tdd.hhpluscleanarchitecturejava.unit.lecture.domain.service.LectureService;
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.common.domain.BusinessError;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.Lecture;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.LectureTime;
-import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.RegisterLecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.Lecture;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.LectureTime;
+import io.hhplus.tdd.hhpluscleanarchitecturejava.lecture.domain.entity.RegisterLecture;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import org.junit.jupiter.api.Test;
 
@@ -94,4 +94,5 @@ public class TestRegister extends TestLectureService {
         verify(lectureTime, times(1)).registerValidate();
 
     }
+
 }
