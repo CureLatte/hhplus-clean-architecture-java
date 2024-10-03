@@ -2,15 +2,13 @@ package io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain;
 
 
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.instructure.StudentEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
+@ToString
 public class Student {
     public long id;
     public String name;

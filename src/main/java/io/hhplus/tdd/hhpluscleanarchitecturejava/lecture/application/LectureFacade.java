@@ -9,6 +9,7 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +28,7 @@ public class LectureFacade {
     public void postRegisterLecture(long studentId, long lectureTimeId) throws BusinessError {
         Student student = this.studentService.getStudentById(studentId);
         LectureTime lectureTime = this.lectureService.getLectureTimeById(lectureTimeId);
-        this.lectureService.register(student, lectureTime);
+        this.lectureService.registerWithLock(student, lectureTime);
     }
 
     public List<RegisterLecture> getLectureHistory(long studentId) throws BusinessError {
