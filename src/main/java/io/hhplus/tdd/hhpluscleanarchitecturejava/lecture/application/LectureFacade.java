@@ -9,6 +9,7 @@ import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.Student;
 import io.hhplus.tdd.hhpluscleanarchitecturejava.student.domain.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
