@@ -20,7 +20,6 @@ public class StudentJpaRepository implements StudentRepository {
     public Student findById(long id) {
         StudentEntity entity = this.entityManager.find(StudentEntity.class, id);
 
-        System.out.println("Entity CHECK: " + entity);
 
         if (entity == null) {
             return null;

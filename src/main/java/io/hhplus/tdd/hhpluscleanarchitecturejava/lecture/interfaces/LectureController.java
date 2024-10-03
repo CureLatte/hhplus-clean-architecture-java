@@ -31,7 +31,6 @@ public class LectureController {
     @GetMapping("/time")
     public GetLectureTimeResponseDto lectureTimeList(@RequestParam LocalDate date) throws BusinessError {
 
-        System.out.println(date);
 
         List<LectureTime> lectureTimeList = this.lectureFacade.getLectureTimeByDate(date);
 
@@ -40,7 +39,6 @@ public class LectureController {
 
         GetLectureTimeResponseDto response = new GetLectureTimeResponseDto(lectureTimeListDtoList);
 
-        System.out.println("response: " + response);
 
         return response;
     }
@@ -48,8 +46,6 @@ public class LectureController {
 
     @PostMapping("/register")
     public PostRegisterLectureResponseDto postRegisterLecture(@RequestBody PostRegisterLectureRequestDto requestDto) throws BusinessError {
-
-        System.out.println(requestDto);
 
         this.lectureFacade.postRegisterLecture(requestDto.getStudentId(), requestDto.getLectureTimeId());
 
@@ -62,13 +58,6 @@ public class LectureController {
 
         List<RegisterLecture> historyList = this.lectureFacade.getLectureHistory(id);
 
-
-        for (RegisterLecture history : historyList) {
-            System.out.println("history ::  " + history);
-            System.out.println(history.toString());
-
-
-        }
 
         List<RegisterLectureListDto> resultList = historyList.stream().map(registerLecture -> {
             return RegisterLectureListDto.builder()

@@ -14,7 +14,6 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponseDto> handleException(Exception e) {
 
         String errMessage = e.getMessage();
-        System.out.println("ErrorHandler " + e);
 
         if (errMessage == null || errMessage.isEmpty()) {
             errMessage = "에러가 발생했습니다";

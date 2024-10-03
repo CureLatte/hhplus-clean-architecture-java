@@ -32,7 +32,13 @@ public class RegisterLectureJpaRepository implements RegisterLectureRepository {
      */
     @Override
     public RegisterLecture check(Student student, LectureTime lectureTime) {
-        Query query = this.entityManager.createNativeQuery("select * from register_lecture where student_id= :studentId and (lecture_time_id= :lectureTimeId or lecture_id= :lectureId)", RegisterLectureEntity.class);
+        String sqlquery = "select rl.* " +
+                "from register_lecture as rl " +
+                "inner join lecture_time as lt on rl.lecture_time_id = lt.id " +
+                "where rl.student_id= :studentId and (rl.lecture_time_id= :lectureTimeId or lt.lecture_id= :lectureId)";
+
+        Query query = this.entityManager.createNativeQuery("" +
+                sqlquery, RegisterLectureEntity.class);
 
         query.setParameter("studentId", student.getId());
         query.setParameter("lectureTimeId", lectureTime.getId());
@@ -40,8 +46,6 @@ public class RegisterLectureJpaRepository implements RegisterLectureRepository {
 
 
         List<RegisterLectureEntity> registerLectureEntityList = query.getResultList();
-
-        System.out.println("Query RESEULT :: " + registerLectureEntityList);
 
         if (registerLectureEntityList.size() <= 0) {
             return null;
@@ -68,7 +72,9 @@ public class RegisterLectureJpaRepository implements RegisterLectureRepository {
 
     @Override
     public List<RegisterLecture> findAllByStudent(Student student) {
-        Query query = this.entityManager.createNativeQuery("select * from register_lecture where student_id= :studentId", RegisterLectureEntity.class);
+        String sqlQuery = "select * from register_lecture where student_id= :studentId";
+
+        Query query = this.entityManager.createNativeQuery(sqlQuery, RegisterLectureEntity.class);
         query.setParameter("studentId", student.getId());
 
         List<RegisterLectureEntity> registerLectureEntityList = query.getResultList();
